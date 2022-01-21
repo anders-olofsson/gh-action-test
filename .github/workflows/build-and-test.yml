@@ -27,6 +27,10 @@ jobs:
       # Runs a single command using the runners shell
       - name: Show the current time
         run: date
+      
+      - name: List files
+        run: ls -l
+        
   # This workflow contains a single job called "build"
   test:
     # The type of runner that the job will run on
