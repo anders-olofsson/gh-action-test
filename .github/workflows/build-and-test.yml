@@ -17,7 +17,7 @@ jobs:
       - name: Build and run unit/integration tests
         run: echo Building and running tests; sleep 5
         
-  run-component-tests:
+  component-tests:
     needs: [build-and-push]
     runs-on: ubuntu-latest
     steps:
