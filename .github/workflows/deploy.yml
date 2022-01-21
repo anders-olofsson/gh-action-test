@@ -4,21 +4,21 @@ name: Deploy
 
 # Controls when the workflow will run
 on:
-  workflow_run:
-    workflows: [Build and Test]
-    types:
-      - completed
+  workflow_call:
+    inputs:
+      version:
+        description: 'Version to deploy'
+        type: string
+        required: true
+        default: 'Dummy'
 
   workflow_dispatch:
     inputs:
-      name:
-        description: 'Person to greet'
+      version:
+        description: 'Version to deploy'
+        type: text
         required: true
-        default: 'Mona the Octocat'
-      home:
-        description: 'location'
-        required: false
-        default: 'The Octoverse'
+        default: 'Dummy'
 
 jobs:
   deploy-to-test:
@@ -35,7 +35,7 @@ jobs:
 
   deploy-to-prod:
     runs-on: ubuntu-latest
-    environment: prodddd
+    environment: prod
     needs: [deploy-to-test]
     steps:
       - name: Deploy to Production
