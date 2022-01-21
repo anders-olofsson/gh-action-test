@@ -21,7 +21,7 @@ on:
         default: 'The Octoverse'
 
 jobs:
-  say_hello:
+  deploy-to-test:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Test
