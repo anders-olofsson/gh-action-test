@@ -23,6 +23,7 @@ on:
 jobs:
   deploy-to-test:
     runs-on: ubuntu-latest
+    environment: test
     steps:
       - name: Deploy to Test
         env:
@@ -30,3 +31,14 @@ jobs:
         run: |
           echo "Event Context:"
           echo "$EVENT_CONTEXT"
+          sleep 5
+
+  deploy-to-prod:
+    runs-on: ubuntu-latest
+    environment: prodddd
+    needs: [deploy-to-test]
+    steps:
+      - name: Deploy to Production
+        run: |
+          echo "Deploying to production"
+          sleep 5
