@@ -29,6 +29,7 @@ jobs:
         run: echo Running component tests; sleep 5
   
   deploy:
+    needs: [component-tests]
     uses: anders-olofsson/gh-action-test/.github/workflows/deploy.yml@main
     with:
       version: ${{ github.sha }}
