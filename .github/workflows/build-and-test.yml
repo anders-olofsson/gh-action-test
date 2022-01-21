@@ -32,7 +32,7 @@ jobs:
     needs: [component-tests]
     uses: anders-olofsson/gh-action-test/.github/workflows/deploy.yml@main
     with:
-      versionn: ${{ github.sha }}
+      version: ${{ github.sha }}
         
   static-code-analysis:
     runs-on: ubuntu-latest
