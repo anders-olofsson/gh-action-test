@@ -1,0 +1,20 @@
+name: Delivery Pipeline
+
+permissions: read-all
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:  
+  build-and-test:
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-and-test.yaml@main
+
+  deploy:
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
+    with:
+      version: ${{ github.sha }}
