@@ -1,4 +1,4 @@
-name: Delivery Pipeline
+name: App A Pipeline
 
 permissions: read-all
 
@@ -11,11 +11,14 @@ on:
   workflow_dispatch:
 
 jobs:  
-  build-and-test:
+  build-test-push:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-and-test.yaml@main
+    with:
+      script: build-app-a.sh
 
   deploy:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
-    needs: [build-and-test]
+    needs: [build-test-push]
     with:
+      image: app-a-image-repo
       version: ${{ github.sha }}
