@@ -31,7 +31,7 @@ jobs:
   
   deploy:
     needs: build-test-and-push
-    uses: /anders-olofsson/gh-actions-test-shared/blob/main/.github/workflows/deployment.yaml@main
+    uses: /anders-olofsson/gh-actions-test-shared/.github/workflows/deployment.yaml@main
     with:
       version: ${{ github.sha }}
         
