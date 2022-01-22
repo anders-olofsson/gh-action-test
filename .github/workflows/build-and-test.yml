@@ -15,3 +15,4 @@ jobs:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/delivery-pipeline.yaml@main
     with:
       version: ${{ github.sha }}
+      dummy: abc
