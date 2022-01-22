@@ -1,0 +1,46 @@
+name: App A Pipeline
+
+permissions: read-all
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+
+  build-test-push-app-a:
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
+    with:
+      build-script: build-app-a.sh
+  deploy-app-a:
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
+    needs: [build-test-push-app-a]
+    with:
+      image: app-a-image-repo
+      version: ${{ github.sha }}
+
+  build-test-push-app-b:
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
+    with:
+      build-script: build-app-b.sh
+  deploy-app-b:
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
+    needs: [build-test-push-app-b]
+    with:
+      image: app-b-image-repo
+      version: ${{ github.sha }}
+
+  build-test-push-app-c:
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
+    with:
+      build-script: build-app-c.sh
+  deploy-app-c:
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
+    needs: [build-test-push-app-c]
+    with:
+      image: app-c-image-repo
+      version: ${{ github.sha }}      
