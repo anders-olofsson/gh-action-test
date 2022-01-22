@@ -12,9 +12,9 @@ on:
 
 jobs:  
   build-test-push:
-    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-and-test.yaml@main
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
     with:
-      script: build-app-a.sh
+      build-script: build-app-a.sh
 
   deploy:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
