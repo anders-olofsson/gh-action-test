@@ -1,4 +1,4 @@
-name: App A Pipeline
+name: Delivery Pipeline
 
 permissions: read-all
 
