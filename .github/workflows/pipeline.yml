@@ -16,5 +16,6 @@ jobs:
 
   deploy:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
+    needs: [build-and-test]
     with:
       version: ${{ github.sha }}
