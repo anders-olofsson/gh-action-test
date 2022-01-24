@@ -8,22 +8,19 @@ on:
       rollback-app-a:
         description: Rollback App A to previous version
         type: boolean
-        required: true
         default: "false"
       rollback-app-b:
         description: Rollback App B to previous version
         type: boolean
-        required: true
         default: "false"
       rollback-app-c:
         description: Rollback App C to previous version
         type: boolean
-        required: true
         default: "false"
 
 jobs:
   rollback-app-a:
-    if: ${{ inputs.rollback-app-a == 'true' }}
+    #if: ${{ inputs.rollback-app-a == 'true' }}
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
     with:
       image: app-a-image-repo
