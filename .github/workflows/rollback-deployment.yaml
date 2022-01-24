@@ -20,21 +20,21 @@ on:
 
 jobs:
   rollback-app-a:
-    #if: ${{ inputs.rollback-app-a == 'true' }}
+    if: ${{ github.event.inputs.rollback-app-a == 'true' }}
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
     with:
       image: app-a-image-repo
       version: ${{ github.sha }}
 
   rollback-app-b:
-    if: ${{ inputs.rollback-app-b == 'true' }}
+    if: ${{ github.event.inputs.rollback-app-b == 'true' }}
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
     with:
       image: app-b-image-repo
       version: ${{ github.sha }}
 
   rollback-app-c:
-    if: ${{ inputs.rollback-app-c == 'true' }}  
+    if: ${{ github.event.inputs.rollback-app-c == 'true' }}  
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
     with:
       image: app-c-image-repo
