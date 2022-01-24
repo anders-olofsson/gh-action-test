@@ -1,0 +1,29 @@
+name: Rollback Deployment
+
+permissions: read-all
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  rollback-deploy-app-a:
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
+    needs: [build-test-push-app-a]
+    with:
+      image: app-a-image-repo
+      version: ${{ github.sha }}
+
+  rollback-deploy-app-b:
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
+    needs: [build-test-push-app-b]
+    with:
+      image: app-b-image-repo
+      version: ${{ github.sha }}
+
+  rollback-deploy-app-c:
+    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
+    needs: [build-test-push-app-c]
+    with:
+      image: app-c-image-repo
+      version: ${{ github.sha }}
