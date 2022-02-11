@@ -12,6 +12,11 @@ on:
 
 jobs:
 
+  dummy:
+    runs-on: ubuntu
+    steps:
+     - run: echo ${{ github.ref }}
+
   build-test-push-app-a:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
     with:
