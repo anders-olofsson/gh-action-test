@@ -12,35 +12,45 @@ on:
 
 jobs:
 
-  build-test-push-app-a:
+  dummy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}'
+
+  build-test-push-app-images:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
     with:
       build-script: build-app-a.sh
+
   deploy-app-a:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
-    needs: [build-test-push-app-a]
+    needs: [build-test-push-app-images]
     with:
       image: app-a-image-repo
-      version: ${{ github.sha }}
+      version: 1.2.3.5
 
-  build-test-push-app-b:
-    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
-    with:
-      build-script: build-app-b.sh
   deploy-app-b:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
-    needs: [build-test-push-app-b]
+    needs: [build-test-push-app-images]
     with:
       image: app-b-image-repo
-      version: ${{ github.sha }}
+      version: ${{ toJSON(needs.build-test-push-app-images) }}
 
-  build-test-push-app-c:
-    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
-    with:
-      build-script: build-app-c.sh
   deploy-app-c:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
-    needs: [build-test-push-app-c]
+    needs: [build-test-push-app-images]
     with:
       image: app-c-image-repo
-      version: ${{ github.sha }}      
+      version: ${{ needs.build-test-push-app-images.outputs.build_version }}
