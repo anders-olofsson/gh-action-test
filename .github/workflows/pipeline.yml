@@ -38,7 +38,7 @@ jobs:
     needs: [build-test-push-app-a]
     with:
       image: app-a-image-repo
-      version: ${{ github.sha }}
+      version: ${{ needs.build-test-push-app-a.outputs.build_version }}
 
   build-test-push-app-b:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
