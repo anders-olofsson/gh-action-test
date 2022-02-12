@@ -29,35 +29,28 @@ jobs:
       - name: Dump matrix context
         run: echo '${{ toJSON(matrix) }}'
 
-  build-test-push-app-a:
+  build-test-push-app-images:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
     with:
       build-script: build-app-a.sh
+
   deploy-app-a:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
-    needs: [build-test-push-app-a]
+    needs: [build-test-push-app-images]
     with:
       image: app-a-image-repo
-      version: ${{ needs.build-test-push-app-a.outputs.build_version }}
+      version: ${{ needs.build-test-push-app-images.outputs.build_version }}
 
-  build-test-push-app-b:
-    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
-    with:
-      build-script: build-app-b.sh
   deploy-app-b:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
-    needs: [build-test-push-app-b]
+    needs: [build-test-push-app-images]
     with:
       image: app-b-image-repo
-      version: ${{ github.sha }}
+      version: ${{ needs.build-test-push-app-images.outputs.build_version }}
 
-  build-test-push-app-c:
-    uses: anders-olofsson/gh-actions-test-shared/.github/workflows/build-test-push.yaml@main
-    with:
-      build-script: build-app-c.sh
   deploy-app-c:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
-    needs: [build-test-push-app-c]
+    needs: [build-test-push-app-images]
     with:
       image: app-c-image-repo
-      version: ${{ github.sha }}      
+      version: ${{ needs.build-test-push-app-images.outputs.build_version }}
