@@ -39,7 +39,7 @@ jobs:
     needs: [build-test-push-app-images]
     with:
       image: app-a-image-repo
-      version: ${{ needs.build-test-push-app-images.outputs.build_version }}
+      version: 1.2.3.5
 
   deploy-app-b:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
