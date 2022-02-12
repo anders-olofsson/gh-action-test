@@ -46,7 +46,7 @@ jobs:
     needs: [build-test-push-app-images]
     with:
       image: app-b-image-repo
-      version: ${{ needs.build-test-push-app-images.outputs.build_version }}
+      version: ${{ toJSON(needs.build-test-push-app-images) }}
 
   deploy-app-c:
     uses: anders-olofsson/gh-actions-test-shared/.github/workflows/deploy.yaml@main
